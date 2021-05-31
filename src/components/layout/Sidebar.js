@@ -8,19 +8,19 @@ import {
 export const Sidebar = () => (
   <div className="sidebar" data-testid="sidebar">
     <ul className="sidebar__generic">
-      <li className="inbox" data-testId="inbox">
+      <li className="inbox" data-testid="inbox">
         <span>
           <FaInbox />
         </span>
         <span>Inbox</span>
       </li>
-      <li className="today" data-testId="today">
+      <li className="today" data-testid="today">
         <span>
           <FaRegCalendar />
         </span>
         <span>Today</span>
       </li>
-      <li className="next_7" data-testId="next_7">
+      <li className="next_7" data-testid="next_7">
         <span>
           <FaRegCalendarAlt />
         </span>

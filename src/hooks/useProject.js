@@ -13,7 +13,7 @@ const useProject = () => {
       .orderBy('projectId')
       .get()
       .then((snapshot) => {
-        const allProjects = snapshot().docs.map((p) => ({
+        const allProjects = snapshot.docs.map((p) => ({
           ...p.data(),
           docId: p.id,
         }))

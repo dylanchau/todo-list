@@ -17,30 +17,33 @@ const useTasks = (selectedProject) => {
 
     unsubscribe =
       selectedProject && !collectedTasksExist(selectedProject)
-        ? unsubscribe.where('projectId', '==', selectedProject)
+        ? (unsubscribe = unsubscribe.where('projectId', '==', selectedProject))
         : selectedProject === 'TODAY'
-        ? unsubscribe.where('date', '==', moment().format('DD/MM/YYY'))
+        ? (unsubscribe = unsubscribe.where(
+            'date',
+            '==',
+            moment().format('DD/MM/YYYY')
+          ))
         : selectedProject === 'INBOX' || selectedProject === 0
-        ? unsubscribe.where('date', '==', '')
+        ? (unsubscribe = unsubscribe.where('date', '==', ''))
         : unsubscribe
 
-    unsubscribe.onSnapshot((snapshot) => {
-      const newTasks = snapshot.docs.map((t) => ({
-        id: t.id,
-        ...t.data(),
+    unsubscribe = unsubscribe.onSnapshot((snapshot) => {
+      const newTasks = snapshot.docs.map((task) => ({
+        id: task.id,
+        ...task.data(),
       }))
 
       setTasks(
-        selectedProject === 'NEXT7'
+        selectedProject === 'NEXT_7'
           ? newTasks.filter(
-              (t) =>
-                moment(t.date, 'DD/MM/YYYY').diff(moment(), 'days') <= 7 &&
-                t.archived !== true
+              (task) =>
+                moment(task.date, 'DD-MM-YYYY').diff(moment(), 'days') <= 7 &&
+                task.archived !== true
             )
-          : newTasks.filter((t) => tasks.archived !== true)
+          : newTasks.filter((task) => task.archived !== true)
       )
-
-      setArchivedTasks(newTasks.filter((t) => t.archived !== false))
+      setArchivedTasks(newTasks.filter((task) => task.archived !== false))
     })
 
     return () => unsubscribe()

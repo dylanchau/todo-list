@@ -276,13 +276,14 @@
        cursor: pointer;
    
        div:nth-child(1) {
-         padding: 5px 0;
+         padding: 10px 0;
          padding-left: 10px;
          padding-right: 15px;
-         width: 100%;
+        //  width: 100%;
          display: -webkit-box;
          display: -ms-flexbox;
          display: flex;
+         flex-direction: column;
          -webkit-box-align: center;
              -ms-flex-align: center;
                  align-items: center;
@@ -349,7 +350,7 @@
        display: -ms-flexbox;
        display: flex;
        border-bottom: $generic-border;
-       padding-left: 10px;
+      //  padding-left: 10px;
        cursor: pointer;
    
        span {
@@ -379,7 +380,7 @@
          display: -ms-flexbox;
          display: flex;
          cursor: pointer;
-         line-height: 1.50;
+         line-height: 2.00;
          font-size: 15px;
          padding-left: 0;
          padding-right: 0;
@@ -436,6 +437,7 @@
          line-height: normal;
          font-weight: normal;
          font-size: 15px;
+         text-align: center;
        }
    
        button {
@@ -718,3 +720,4 @@
        @include cancel();
      }
    }
+   

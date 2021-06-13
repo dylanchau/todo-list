@@ -1,10 +1,32 @@
 import { Checkbox } from 'components/Checkbox'
+import { collectedTaks } from 'constant'
+import { useProjectValues, useSelectedProjectValue } from 'context'
+import { collectedTasksExist, getCollectedTitle, getTitle } from 'helpers'
 import { useTasks } from 'hooks'
+import { useEffect } from 'react'
 
 export const Tasks = () => {
-  const { tasks } = useTasks('1')
+  const { selectedProject } = useSelectedProjectValue()
+  const { projects } = useProjectValues()
+  const { tasks } = useTasks(selectedProject)
 
-  const projectName = ''
+  let projectName = ''
+  if (
+    projects &&
+    projects.length > 0 &&
+    selectedProject &&
+    !collectedTasksExist(selectedProject)
+  ) {
+    projectName = getTitle(projects, selectedProject).name
+  }
+
+  if (selectedProject && collectedTasksExist(selectedProject)) {
+    projectName = getCollectedTitle(collectedTaks, selectedProject).name
+  }
+
+  useEffect(() => {
+    document.title = `${projectName} Todo List`
+  })
 
   return (
     <div className="tasks" data-testid="tasks">

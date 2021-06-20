@@ -5,12 +5,18 @@ import { collectedTasksExist, getCollectedTitle, getTitle } from 'helpers'
 import { useTasks } from 'hooks'
 import { useEffect } from 'react'
 
+import { AddTask } from './AddTask'
+
 export const Tasks = () => {
   const { selectedProject } = useSelectedProjectValue()
   const { projects } = useProjectValues()
   const { tasks } = useTasks(selectedProject)
 
   let projectName = ''
+  if (selectedProject && collectedTasksExist(selectedProject)) {
+    projectName = getCollectedTitle(collectedTaks, selectedProject).name
+  }
+
   if (
     projects &&
     projects.length > 0 &&
@@ -18,10 +24,6 @@ export const Tasks = () => {
     !collectedTasksExist(selectedProject)
   ) {
     projectName = getTitle(projects, selectedProject).name
-  }
-
-  if (selectedProject && collectedTasksExist(selectedProject)) {
-    projectName = getCollectedTitle(collectedTaks, selectedProject).name
   }
 
   useEffect(() => {
@@ -41,6 +43,8 @@ export const Tasks = () => {
             </li>
           ))}
       </ul>
+
+      <AddTask />
     </div>
   )
 }

@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable react/jsx-props-no-multi-spaces */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { useProjectValues, useSelectedProjectValue } from 'context'
@@ -17,15 +16,17 @@ export const Projects = ({ activeValue = null }) => {
       <li
         key={p.projectId}
         data-doc-id={p.docId}
-        data-tesetid="project-action"
+        data-testid="project-action"
         className={
           active === p.projectId
             ? 'active sidebar__project'
             : 'sidebar__project'
         }
-        onKeyDown={() => {
-          setActive(p.projectId)
-          setSelectedProject(p.projectId)
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            setActive(p.projectId)
+            setSelectedProject(p.projectId)
+          }
         }}
         onClick={() => {
           setActive(p.projectId)

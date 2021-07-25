@@ -13,7 +13,7 @@ export const TaskDate = ({ setTaskDate, showTaskDate, setShowTaskDate }) =>
             setShowTaskDate(false)
             setTaskDate(moment().format('DD/MM/YYYY'))
           }}
-          data-testid="task-date-overlay"
+          data-testid="task-date-today"
         >
           <div>
             <span>

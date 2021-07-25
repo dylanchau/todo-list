@@ -32,7 +32,9 @@ export const Tasks = () => {
 
   return (
     <div className="tasks" data-testid="tasks">
-      <h2 className="project-name">{projectName}</h2>
+      <h2 className="project-name" data-testid="project-name">
+        {projectName}
+      </h2>
 
       <ul className="tasks__list">
         {tasks &&

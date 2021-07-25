@@ -9,7 +9,10 @@ function App({ darkModeDefault = false }) {
     <>
       <SelectedProjectProvide>
         <ProjectProvide>
-          <main className={darkMode ? 'darkmode' : ''}>
+          <main
+            data-testid="application"
+            className={darkMode ? 'darkmode' : ''}
+          >
             <Header darkMode={darkMode} setDarkMode={setDarkMode} />
             <Content />
           </main>

@@ -1,10 +1,11 @@
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { AddTask } from 'components/AddTask'
 
+import { useSelectedProjectValue } from '../context'
 import { firebase } from '../firebase'
 
 jest.mock('../context', () => ({
-  useSelectedProjectValue: () => ({ selectedProject: 1 }),
+  useSelectedProjectValue: jest.fn(),
   useProjectValues: () => ({ projects: [] }),
 }))
 
@@ -22,12 +23,18 @@ describe('<AddTask />', () => {
 
   describe('Quick add task', () => {
     it('Render quick add task popup', () => {
+      useSelectedProjectValue.mockImplementation(() => ({
+        setSelectedProject: () => ({ selectedProject: 1 }),
+      }))
       const { getByTestId, getByText } = render(<AddTask showQuickAddTask />)
       expect(getByTestId('add-task-main')).toBeTruthy()
       expect(getByText('Quick Add Task')).toBeTruthy()
     })
 
     it('Trigger cancel action', () => {
+      useSelectedProjectValue.mockImplementation(() => ({
+        setSelectedProject: () => ({ selectedProject: 1 }),
+      }))
       const setShowQuickAddTask = jest.fn()
       const { getByTestId, getByText } = render(
         <AddTask showQuickAddTask setShowQuickAddTask={setShowQuickAddTask} />
@@ -38,6 +45,10 @@ describe('<AddTask />', () => {
     })
 
     it('Add task', async () => {
+      useSelectedProjectValue.mockImplementation(() => ({
+        setSelectedProject: jest.fn(() => '1'),
+        selectedProject: 'TODAY',
+      }))
       const setShowQuickAddTask = jest.fn()
       const { getByTestId } = render(
         <AddTask showQuickAddTask setShowQuickAddTask={setShowQuickAddTask} />
@@ -51,13 +62,22 @@ describe('<AddTask />', () => {
   })
 
   describe('Add task main', () => {
+    useSelectedProjectValue.mockImplementation(() => ({
+      setSelectedProject: () => ({ selectedProject: 1 }),
+    }))
     it('Render show add task main', () => {
+      useSelectedProjectValue.mockImplementation(() => ({
+        setSelectedProject: () => ({ selectedProject: 1 }),
+      }))
       const { getByTestId } = render(<AddTask />)
       fireEvent.click(getByTestId('show-main-action'))
       expect(getByTestId('add-task-main')).toBeTruthy()
     })
 
     it('Render show add task main project overlay', () => {
+      useSelectedProjectValue.mockImplementation(() => ({
+        setSelectedProject: () => ({ selectedProject: 1 }),
+      }))
       const { queryByTestId } = render(<AddTask />)
       fireEvent.click(queryByTestId('show-main-action'))
       fireEvent.click(queryByTestId('show-project-overlay'))
@@ -67,6 +87,9 @@ describe('<AddTask />', () => {
     })
 
     it('Trigger add task main cancel action', () => {
+      useSelectedProjectValue.mockImplementation(() => ({
+        setSelectedProject: () => ({ selectedProject: 1 }),
+      }))
       const { queryByTestId } = render(<AddTask />)
       fireEvent.click(queryByTestId('show-main-action'))
       expect(queryByTestId('add-task-main')).toBeTruthy()
